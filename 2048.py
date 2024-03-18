@@ -1,6 +1,6 @@
 import tkinter as tk
 import random
-import numpy as np
+import numpy as np 
 
 #m = np.zeros((4, 4), dtype=int)
 
