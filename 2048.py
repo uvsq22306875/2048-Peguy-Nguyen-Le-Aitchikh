@@ -237,11 +237,13 @@ Plateau = tk.Canvas(fenetre, width = taille_du_plateau + 4, height = taille_du_p
 Plateau.grid(column = 0, row = 3, columnspan = 3, rowspan = 3, padx = 10, pady = 10)
 
 def la_grille():
-    décalage = 5  #Décalage pour centrer la grille.
-    for i in range(5):
-        Plateau.create_line(décalage, i * taille_de_une_case + décalage, taille_du_plateau + décalage, i * taille_de_une_case + décalage, fill="black")
-        Plateau.create_line(i * taille_de_une_case + décalage, décalage, i * taille_de_une_case + décalage, taille_du_plateau + décalage, fill="black")
-
+    décalage = 5  #Décalage pour centrer la grille
+    for ligne in range(4):
+        for colonne in range(4):
+            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
+            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
+            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
+            
 la_grille()  #Appel de la fonction pour dessiner la grille après la création du canevas.
 
 #Création des Widgets.
