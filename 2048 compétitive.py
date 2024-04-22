@@ -31,7 +31,7 @@ def affichage():
             Plateau.create_rectangle(x0, y0, x1, y1, fill=couleur, outline="black")
             #Affiche les valeurs des tuiles dans les cellules.
             if valeur != 0:
-                Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=('Helvetica', 20))
+                Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=("Cambria", 20))
 
 
 
@@ -53,15 +53,15 @@ def score():
     score_total = 0
     for ligne in range(4):
         for colonne in range(4):
-            score_total += m[ligne][colonne]  #Ajoute la valeur de chaque case au score total.
+            score_total += m[ligne][colonne] #Ajoute la valeur de chaque case au score total.
     
     #Met à jour le texte du label avec le score total.
-    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Bahnschrift", 10))
+    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Cambria", 15))
 
     if score_total == 262140:
-        Score_joueur.config(text="Vous avez gagné.", font=("Bahnschrift", 15))
+        Score_joueur.config(text="Vous avez gagné.", font=("Cambria", 15))
     elif perdu():
-        Score_joueur.config(text="Vous avez perdu.", font=("Bahnschrift", 15))
+        Score_joueur.config(text="Vous avez perdu.", font=("Cambria", 15))
 
 
 
@@ -272,6 +272,16 @@ def bas():
 
     return m
 
+def flèche_direction(event):
+    if event.keysym == "Right":  #Touche droite
+        droite()
+    if event.keysym == "Left":   #Touche gauche
+        gauche()
+    if event.keysym == "Up":     #Touche haut
+        haut()
+    if event.keysym == "Down":   #Touche bas
+        bas()
+
 
 
 #Fonction de démarrage et d'arrêt des parties.
@@ -329,18 +339,18 @@ Plateau.grid(column = 0, row = 3, columnspan = 3, rowspan = 3, padx = 10, pady =
 la_grille()  #Appel de la fonction pour dessiner la grille après la création du canevas.
 
 #Création des Widgets.
-Button_Play = tk.Button(fenetre, text = "Play", font = ("Bahnschrift", 10), command = play)
-Button_Exit = tk.Button(fenetre, text = "Exit", font = ("Bahnschrift", 10), command = exit)
-Button_Save = tk.Button(fenetre, text = "Save", font = ("Bahnschrift", 10), command = save)
-Button_Load = tk.Button(fenetre, text = "Load", font = ("Bahnschrift", 10), command = load)
+Button_Play = tk.Button(fenetre, text = "Play", font = ("Cambria", 10), command = play)
+Button_Exit = tk.Button(fenetre, text = "Exit", font = ("Cambria", 10), command = exit)
+Button_Save = tk.Button(fenetre, text = "Save", font = ("Cambria", 10), command = save)
+Button_Load = tk.Button(fenetre, text = "Load", font = ("Cambria", 10), command = load)
 
-Button_Left = tk.Button(fenetre, text = "Left", font = ("Bahnschrift", 10), command = gauche)
-Button_Right = tk.Button(fenetre, text = "Right", font = ("Bahnschrift", 10), command = droite)
-Button_Up = tk.Button(fenetre, text = "Up", font = ("Bahnschrift", 10), command = haut)
-Button_Down = tk.Button(fenetre, text = "Down", font = ("Bahnschrift", 10), command = bas)
+Button_Left = tk.Button(fenetre, text = "Left", font = ("Cambria", 10), command = gauche)
+Button_Right = tk.Button(fenetre, text = "Right", font = ("Cambria", 10), command = droite)
+Button_Up = tk.Button(fenetre, text = "Up", font = ("Cambria", 10), command = haut)
+Button_Down = tk.Button(fenetre, text = "Down", font = ("Cambria", 10), command = bas)
 
-Titre = tk.Label(fenetre, background = "beige",text = '2048', font = ("Bahnschrift", 25))
-Score_joueur = tk.Label(fenetre,background = "beige", text = "Score : 0", font = ("Bahnschrift", 10))
+Titre = tk.Label(fenetre, background = "beige",text = '2048', font = ("Cambria", 25))
+Score_joueur = tk.Label(fenetre,background = "beige", text = "Score : 0", font = ("Cambria", 15))
 
 #Positionnement des Widgets.
 Button_Play.grid(column = 0, row = 0, padx = 10, pady = 5, sticky = "ew")
@@ -355,6 +365,12 @@ Button_Down.grid(column = 1, row = 8, padx = 10, pady = 5, sticky = "ew")
 
 Titre.grid(column = 1, row = 0, padx = 10, pady = 10, sticky = "ew")
 Score_joueur.grid(column = 1, row = 1, padx = 10, pady = 10, sticky = "ew")
+
+#Associe les touches directionnelles aux fonctions des mouvements.
+fenetre.bind("<Right>", flèche_direction)
+fenetre.bind("<Left>", flèche_direction)
+fenetre.bind("<Up>", flèche_direction)
+fenetre.bind("<Down>", flèche_direction)
 
 #Lancement de la boucle de notre fenétre.
 fenetre.mainloop()
