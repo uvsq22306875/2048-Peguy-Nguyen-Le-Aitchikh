@@ -15,7 +15,7 @@ def la_grille():
 
 dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
             256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
-                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "black"}
+                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "silver"}
 
 def affichage():
     global m
@@ -56,12 +56,12 @@ def score():
             score_total += m[ligne][colonne] #Ajoute la valeur de chaque case au score total.
     
     #Met à jour le texte du label avec le score total.
-    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Cambria", 15))
+    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Cambria", 12))
 
     if score_total == 262140:
-        Score_joueur.config(text="Vous avez gagné.", font=("Cambria", 15))
+        Score_joueur.config(text="Vous avez gagné.", font=("Cambria", 12))
     elif perdu():
-        Score_joueur.config(text="Vous avez perdu.", font=("Cambria", 15))
+        Score_joueur.config(text="Vous avez perdu.", font=("Cambria", 12))
 
 
 
@@ -339,18 +339,18 @@ Plateau.grid(column = 0, row = 3, columnspan = 3, rowspan = 3, padx = 10, pady =
 la_grille()  #Appel de la fonction pour dessiner la grille après la création du canevas.
 
 #Création des Widgets.
-Button_Play = tk.Button(fenetre, text = "Play", font = ("Cambria", 10), command = play)
-Button_Exit = tk.Button(fenetre, text = "Exit", font = ("Cambria", 10), command = exit)
-Button_Save = tk.Button(fenetre, text = "Save", font = ("Cambria", 10), command = save)
-Button_Load = tk.Button(fenetre, text = "Load", font = ("Cambria", 10), command = load)
+Button_Play = tk.Button(fenetre, text = "Play", font = ("Cambria", 11), command = play)
+Button_Exit = tk.Button(fenetre, text = "Exit", font = ("Cambria", 11), command = exit)
+Button_Save = tk.Button(fenetre, text = "Save", font = ("Cambria", 11), command = save)
+Button_Load = tk.Button(fenetre, text = "Load", font = ("Cambria", 11), command = load)
 
-Button_Left = tk.Button(fenetre, text = "Left", font = ("Cambria", 10), command = gauche)
-Button_Right = tk.Button(fenetre, text = "Right", font = ("Cambria", 10), command = droite)
-Button_Up = tk.Button(fenetre, text = "Up", font = ("Cambria", 10), command = haut)
-Button_Down = tk.Button(fenetre, text = "Down", font = ("Cambria", 10), command = bas)
+Button_Left = tk.Button(fenetre, text = "Left", font = ("Cambria", 11), command = gauche)
+Button_Right = tk.Button(fenetre, text = "Right", font = ("Cambria", 11), command = droite)
+Button_Up = tk.Button(fenetre, text = "Up", font = ("Cambria", 11), command = haut)
+Button_Down = tk.Button(fenetre, text = "Down", font = ("Cambria", 11), command = bas)
 
 Titre = tk.Label(fenetre, background = "beige",text = '2048', font = ("Cambria", 25))
-Score_joueur = tk.Label(fenetre,background = "beige", text = "Score : 0", font = ("Cambria", 15))
+Score_joueur = tk.Label(fenetre,background = "beige", text = "Score : 0", font = ("Cambria", 12))
 
 #Positionnement des Widgets.
 Button_Play.grid(column = 0, row = 0, padx = 10, pady = 5, sticky = "ew")
@@ -366,7 +366,7 @@ Button_Down.grid(column = 1, row = 8, padx = 10, pady = 5, sticky = "ew")
 Titre.grid(column = 1, row = 0, padx = 10, pady = 10, sticky = "ew")
 Score_joueur.grid(column = 1, row = 1, padx = 10, pady = 10, sticky = "ew")
 
-#Associe les touches directionnelles aux fonctions des mouvements.
+#Associe les touches directionnelles a la fonction qui gére les mouvements.
 fenetre.bind("<Right>", flèche_direction)
 fenetre.bind("<Left>", flèche_direction)
 fenetre.bind("<Up>", flèche_direction)
