@@ -4,10 +4,71 @@ import numpy as np
 
 
 
-#Fonction utile au bon déroulement des parties.
+#Fonction d'affichage de la grille.
+def la_grille():
+    décalage = 5 #Décalage pour centrer la grille
+    for ligne in range(4):
+        for colonne in range(4):
+            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
+            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
+            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
+
+dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
+            256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
+                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "black"}
+
+def affichage():
+    global m
+    décalage = 5 #Décalage pour centrer la grille
+    for ligne in range(4):
+        for colonne in range(4):
+            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
+            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
+            valeur = m[ligne][colonne]
+            #Récupération de la couleur correspondant à la valeur.
+            couleur = dictionnaire_des_couleurs.get(valeur)
+            #Affiche une couleur en fonction de la valeur.
+            Plateau.create_rectangle(x0, y0, x1, y1, fill=couleur, outline="black")
+            #Affiche les valeurs des tuiles dans les cellules.
+            if valeur != 0:
+                Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=('Helvetica', 20))
+
+
+
+#Fonction de score.
+def perdu():
+    global m
+    for ligne in range(4):
+        for colonne in range(3):
+            if m[ligne][colonne] == m[ligne][colonne + 1] or m[ligne][colonne] == 0:
+                return False
+    for colonne in range(4):
+        for ligne in range(3):
+            if m[ligne][colonne] == m[ligne + 1][colonne] or m[ligne][colonne] == 0:
+                return False
+    
+    return True
+
+def score():
+    score_total = 0
+    for ligne in range(4):
+        for colonne in range(4):
+            score_total += m[ligne][colonne]  #Ajoute la valeur de chaque case au score total.
+    
+    #Met à jour le texte du label avec le score total.
+    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Bahnschrift", 10))
+
+    if score_total == 262140:
+        Score_joueur.config(text="Vous avez gagné.", font=("Bahnschrift", 15))
+    elif perdu():
+        Score_joueur.config(text="Vous avez perdu.", font=("Bahnschrift", 15))
+
+
+
+#Fonction lié au placement de tuile.
 def compteur_des_additions_possibles(m):
     compteur = 0
-    m_temp = [ligne[:] for ligne in m]  # Copie de la grille
+    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
 
     # On décale tous les éléments vers la gauche pour éliminer les zéros.
     for _ in range(2):
@@ -71,68 +132,22 @@ def placer_une_tuile():
     global m
     tuiles_vides = [(ligne, colonne) for ligne in range(4) for colonne in range(4) if m[ligne][colonne] == 0]
     if tuiles_vides:
-        dict_compteurs = {}
+        dict_des_compteurs = {}
         for (ligne, colonne) in tuiles_vides:
-            for valeur in [2, 4]:  #Tester les deux valeurs possibles : 2 et 4
-                test_des_additions = [ligne[:] for ligne in m]  #Copie temporaire de la grille
-                test_des_additions[ligne][colonne] = valeur  #Placer une tuile de valeur 2 ou 4
+            for valeur in [2, 4]: #Tester les deux valeurs possibles : 2 et 4
+                test_des_additions = [ligne[:] for ligne in m] #Copie temporaire de la grille
+                test_des_additions[ligne][colonne] = valeur #Placer une tuile de valeur 2 ou 4
                 compteur = compteur_des_additions_possibles(test_des_additions)
-                dict_compteurs[(ligne, colonne, valeur)] = compteur
+                dict_des_compteurs[(ligne, colonne, valeur)] = compteur
 
         #Trouver le compteur minimum
-        min_compteur = min(dict_compteurs.values())
+        min_compteur = min(dict_des_compteurs.values())
         #Sélectionner aléatoirement un couple avec le compteur minimum
-        couples_min_compteur = [couple for couple, compteur in dict_compteurs.items() if compteur == min_compteur]
-        choix = random.choice(couples_min_compteur)
-        ligne, colonne, valeur = choix
-        m[ligne][colonne] = valeur  #Placer une tuile de valeur 2 ou 4
-
-dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
-            256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
-                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "black"}
-
-def affichage():
-    global m
-    décalage = 5  #Décalage pour centrer la grille
-    for ligne in range(4):
-        for colonne in range(4):
-            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
-            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
-            valeur = m[ligne][colonne]
-            #Récupération de la couleur correspondant à la valeur.
-            couleur = dictionnaire_des_couleurs.get(valeur)
-            #Affiche une couleur en fonction de la valeur.
-            Plateau.create_rectangle(x0, y0, x1, y1, fill=couleur, outline="black")
-            #Affiche les valeurs des tuiles dans les cellules.
-            if valeur != 0:
-                Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=('Helvetica', 20))
-
-def perdu():
-    global m
-    for ligne in range(4):
-        for colonne in range(3):
-            if m[ligne][colonne] == m[ligne][colonne + 1] or m[ligne][colonne] == 0:
-                return False
-    for colonne in range(4):
-        for ligne in range(3):
-            if m[ligne][colonne] == m[ligne + 1][colonne] or m[ligne][colonne] == 0:
-                return False
-    
-    return True
-
-def score():
-    score_total = 0
-    for ligne in range(4):
-        for colonne in range(4):
-            score_total += m[ligne][colonne]  #Ajoute la valeur de chaque case au score total.
-    
-    #Met à jour le texte du label avec le score total.
-    Score_joueur.config(text="Votre score est :" + str(score_total), font=("Bahnschrift", 10))
-
-    if score_total == 262140:
-        Score_joueur.config(text="Vous avez gagné.", font=("Bahnschrift", 15))
-    elif perdu():
-        Score_joueur.config(text="Vous avez perdu.", font=("Bahnschrift", 15))
+        couples_min_compteur = [couple for couple, compteur in dict_des_compteurs.items() if compteur == min_compteur]
+        choix_final = random.choice(couples_min_compteur)
+        ligne, colonne, valeur = choix_final
+        #Placer une tuile de valeur 2 ou 4
+        m[ligne][colonne] = valeur 
 
 
 
@@ -310,14 +325,6 @@ taille_de_une_case = taille_du_plateau // 4
 
 Plateau = tk.Canvas(fenetre, width = taille_du_plateau + 4, height = taille_du_plateau + 4, borderwidth = 2, relief = "groove")
 Plateau.grid(column = 0, row = 3, columnspan = 3, rowspan = 3, padx = 10, pady = 10)
-
-def la_grille():
-    décalage = 5  #Décalage pour centrer la grille
-    for ligne in range(4):
-        for colonne in range(4):
-            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
-            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
-            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
             
 la_grille()  #Appel de la fonction pour dessiner la grille après la création du canevas.
 

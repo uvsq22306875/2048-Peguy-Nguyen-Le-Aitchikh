@@ -4,13 +4,14 @@ import numpy as np
 
 
 
-#Fonction utile au bon déroulement des parties.
-def placer_une_tuile():
-    global m
-    tuiles_vides = [(ligne, colonne) for ligne in range(4) for colonne in range(4) if m[ligne][colonne] == 0]
-    if tuiles_vides:
-        ligne, colonne = random.choice(tuiles_vides)
-        m[ligne][colonne] = random.choices([2, 4], weights = [0.9, 0.1])[0]
+#Fonction d'affichage de la grille.
+def la_grille():
+    décalage = 5 #Décalage pour centrer la grille
+    for ligne in range(4):
+        for colonne in range(4):
+            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
+            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
+            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
 
 dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
             256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
@@ -18,7 +19,7 @@ dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "co
 
 def affichage():
     global m
-    décalage = 5  #Décalage pour centrer la grille
+    décalage = 5 #Décalage pour centrer la grille
     for ligne in range(4):
         for colonne in range(4):
             x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
@@ -32,6 +33,9 @@ def affichage():
             if valeur != 0:
                 Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=('Helvetica', 20))
 
+
+
+#Fonction de score.
 def perdu():
     global m
     for ligne in range(4):
@@ -58,6 +62,16 @@ def score():
         Score_joueur.config(text="Vous avez gagné.", font=("Bahnschrift", 15))
     elif perdu():
         Score_joueur.config(text="Vous avez perdu.", font=("Bahnschrift", 15))
+
+
+
+#Fonction lié au placement de tuile.
+def placer_une_tuile():
+    global m
+    tuiles_vides = [(ligne, colonne) for ligne in range(4) for colonne in range(4) if m[ligne][colonne] == 0]
+    if tuiles_vides:
+        ligne, colonne = random.choice(tuiles_vides)
+        m[ligne][colonne] = random.choices([2, 4], weights = [0.9, 0.1])[0] 
 
 
 
@@ -187,7 +201,7 @@ def bas():
 #Fonction de démarrage et d'arrêt des parties.
 def play():
     global m
-    m = np.zeros((4, 4), dtype=int)
+    m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     #m = [[4,8,16,32],[64,128,256,512],[1024,2048,4096,8192],[16384,32768,65536,131072]]
     #m = [[2,4,4,2],[0,0,0,2],[0,0,2,0],[2,0,0,2]]
     
@@ -226,7 +240,7 @@ def exit():
 
 #Fonctions auxiliaires de notre fenêtre.
 fenetre = tk.Tk()
-fenetre.title("Projet 2048")
+fenetre.title("Projet 2048 Compétitive")
 fenetre.configure(background = "beige")
 
 #Création du plateau et de la grille.
@@ -235,14 +249,6 @@ taille_de_une_case = taille_du_plateau // 4
 
 Plateau = tk.Canvas(fenetre, width = taille_du_plateau + 4, height = taille_du_plateau + 4, borderwidth = 2, relief = "groove")
 Plateau.grid(column = 0, row = 3, columnspan = 3, rowspan = 3, padx = 10, pady = 10)
-
-def la_grille():
-    décalage = 5  #Décalage pour centrer la grille
-    for ligne in range(4):
-        for colonne in range(4):
-            x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
-            x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
-            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
             
 la_grille()  #Appel de la fonction pour dessiner la grille après la création du canevas.
 
