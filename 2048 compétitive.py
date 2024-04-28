@@ -69,7 +69,7 @@ def score():
         Score_joueur.config(text="Vous avez gagné.", font=("Cambria", 12))
     elif perdu():
         Score_joueur.config(text="Vous avez perdu.", font=("Cambria", 12))
-
+ 
 
 
 #Fonction lié au placement de tuile.

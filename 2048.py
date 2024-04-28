@@ -39,7 +39,7 @@ def affichage():
             if valeur != 0:
                 Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=("Cambria", 20))
 
-
+ 
 
 #Fonction de score.
 def perdu():
