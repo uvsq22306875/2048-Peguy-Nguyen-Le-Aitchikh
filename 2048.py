@@ -11,11 +11,17 @@ def la_grille():
         for colonne in range(4):
             x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
             x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
-            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
+            Plateau.create_rectangle((x0, y0), (x1, y1), fill="white", outline="black")
 
-dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
-            256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
-                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "silver"}
+dictionnaire_des_couleurs = {0: "#FFFFFF", 2: "#FFEBF0", 4: "#FFD1DC", 8: "#FFB6C1", 16: "#FFC0CB", \
+                             32: "#FFE4E1", 64: "#FFDAB9", 128: "#FFCC99", \
+                             256: "#FFE699", 512: "#FFFF99", 1024: "#D8FFD1", 4096: "#AFFFA1", \
+                             8192: "#A0E687", 16384: "#C5E5F0", 32768: "#ADD8E6", 65536: "#B0E0FF", \
+                             131072: "#90B4F4" }
+
+# Rose pastel, Rose clair, Rose bonbon, Saumon clair, Rose clair (répété), Pêche, Vert menthe ,Vert clair
+# Vert pastel, Vert citron, Teinte vert pastel supplémentaire,Teinte vert pastel supplémentaire (répété)
+# Bleu clair, Bleu ciel pâle, Bleu acier, Bleu acier moyen, Bleu acier très clair
 
 def affichage():
     global m
@@ -42,6 +48,7 @@ def perdu():
         for colonne in range(3):
             if m[ligne][colonne] == m[ligne][colonne + 1] or m[ligne][colonne] == 0:
                 return False
+            
     for colonne in range(4):
         for ligne in range(3):
             if m[ligne][colonne] == m[ligne + 1][colonne] or m[ligne][colonne] == 0:
@@ -196,7 +203,7 @@ def bas():
 
     return m
 
-def flèche_direction(event):
+def flèche_directionnelles(event):
     if event.keysym == "Right":  #Touche droite
         droite()
     if event.keysym == "Left":   #Touche gauche
@@ -211,8 +218,8 @@ def flèche_direction(event):
 #Fonction de démarrage et d'arrêt des parties.
 def play():
     global m
-    #m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    m = [[4,8,16,32],[64,128,256,512],[1024,2048,4096,8192],[16384,32768,65536,131072]]
+    m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    #m = [[4,8,16,32],[64,128,256,512],[1024,2048,4096,8192],[16384,32768,65536,131072]]
     #m = [[2,4,4,2],[0,0,0,2],[0,0,2,0],[2,0,0,2]]
     
     placer_une_tuile()
@@ -228,11 +235,11 @@ def save():
 
 def load():
     global m
-    m = np.zeros((4, 4), dtype=int)
-    with open("sauvegarde jeu 2048.txt", 'r') as fichier:
+    m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    with open("sauvegarde jeu 2048.txt", "r") as fichier:
         liste_des_valeurs = []
         for ligne in fichier:
-            liste_des_valeurs.append(int(ligne.strip()))  # ##Convertit la chaîne en entier et supprime le caractère de saut de ligne
+            liste_des_valeurs.append(int(ligne.strip()))  #Convertit la chaîne en entier et supprime le caractère de saut de ligne
 
     indice = 0
     for ligne in range(4):
@@ -291,10 +298,10 @@ Titre.grid(column = 1, row = 0, padx = 10, pady = 10, sticky = "ew")
 Score_joueur.grid(column = 1, row = 1, padx = 10, pady = 10, sticky = "ew")
 
 #Associe les touches directionnelles a la fonction qui gére les mouvements.
-fenetre.bind("<Right>", flèche_direction)
-fenetre.bind("<Left>", flèche_direction)
-fenetre.bind("<Up>", flèche_direction)
-fenetre.bind("<Down>", flèche_direction)
+fenetre.bind("<Right>", flèche_directionnelles)
+fenetre.bind("<Left>", flèche_directionnelles)
+fenetre.bind("<Up>", flèche_directionnelles)
+fenetre.bind("<Down>", flèche_directionnelles)
 
 #Lancement de la boucle de notre fenétre.
 fenetre.mainloop()

@@ -13,9 +13,15 @@ def la_grille():
             x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
             Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
 
-dictionnaire_des_couleurs = {0: "white", 2: "lightyellow", 4: "moccasin", 8: "coral", 16: "tomato", 32: "yellow", 64: "lawngreen", 128: "lime", \
-            256: "limegreen", 512: "cyan", 1024: "deepskyblue", 2048: "royalblue", 4096: "mediumslateblue", 8192: "slateblue", \
-                16384: "blueviolet", 32768: "mediumorchid", 65536: "violet", 131072: "silver"}
+dictionnaire_des_couleurs = {0: "#FFFFFF", 2: "#FFEBF0", 4: "#FFD1DC", 8: "#FFB6C1", 16: "#FFC0CB", \
+                             32: "#FFE4E1", 64: "#FFDAB9", 128: "#FFCC99", \
+                             256: "#FFE699", 512: "#FFFF99", 1024: "#D8FFD1", 4096: "#AFFFA1", \
+                             8192: "#A0E687", 16384: "#C5E5F0", 32768: "#ADD8E6", 65536: "#B0E0FF", \
+                             131072: "#90B4F4" }
+
+# Rose pastel, Rose clair, Rose bonbon, Saumon clair, Rose clair (répété), Pêche, Vert menthe ,Vert clair
+# Vert pastel, Vert citron, Teinte vert pastel supplémentaire,Teinte vert pastel supplémentaire (répété)
+# Bleu clair, Bleu ciel pâle, Bleu acier, Bleu acier moyen, Bleu acier très clair
 
 def affichage():
     global m
@@ -42,6 +48,7 @@ def perdu():
         for colonne in range(3):
             if m[ligne][colonne] == m[ligne][colonne + 1] or m[ligne][colonne] == 0:
                 return False
+            
     for colonne in range(4):
         for ligne in range(3):
             if m[ligne][colonne] == m[ligne + 1][colonne] or m[ligne][colonne] == 0:
