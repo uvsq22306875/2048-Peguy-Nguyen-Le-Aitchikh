@@ -34,7 +34,7 @@ def affichage():
             #Récupération de la couleur correspondant à la valeur.
             couleur = dictionnaire_des_couleurs.get(valeur)
             #Affiche une couleur en fonction de la valeur.
-            Plateau.create_rectangle(x0, y0, x1, y1, fill=couleur, outline="black")
+            Plateau.create_rectangle((x0, y0), (x1, y1), fill=couleur, outline="black")
             #Affiche les valeurs des tuiles dans les cellules.
             if valeur != 0:
                 Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=("Cambria", 20))
@@ -220,7 +220,6 @@ def play():
     global m
     m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     #m = [[4,8,16,32],[64,128,256,512],[1024,2048,4096,8192],[16384,32768,65536,131072]]
-    #m = [[2,4,4,2],[0,0,0,2],[0,0,2,0],[2,0,0,2]]
     
     placer_une_tuile()
     placer_une_tuile()

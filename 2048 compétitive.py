@@ -11,7 +11,7 @@ def la_grille():
         for colonne in range(4):
             x0, y0 = colonne * taille_de_une_case + décalage, ligne * taille_de_une_case + décalage
             x1, y1 = x0 + taille_de_une_case, y0 + taille_de_une_case
-            Plateau.create_rectangle(x0, y0, x1, y1, fill="white", outline="black")
+            Plateau.create_rectangle((x0, y0), (x1, y1), fill="white", outline="black")
 
 dictionnaire_des_couleurs = {0: "#FFFFFF", 2: "#FFEBF0", 4: "#FFD1DC", 8: "#FFB6C1", 16: "#FFC0CB", \
                              32: "#FFE4E1", 64: "#FFDAB9", 128: "#FFCC99", \
@@ -34,7 +34,7 @@ def affichage():
             #Récupération de la couleur correspondant à la valeur.
             couleur = dictionnaire_des_couleurs.get(valeur)
             #Affiche une couleur en fonction de la valeur.
-            Plateau.create_rectangle(x0, y0, x1, y1, fill=couleur, outline="black")
+            Plateau.create_rectangle((x0, y0), (x1, y1), fill=couleur, outline="black")
             #Affiche les valeurs des tuiles dans les cellules.
             if valeur != 0:
                 Plateau.create_text((x0 + x1) / 2, (y0 + y1) / 2, text=str(valeur), font=("Cambria", 20))
@@ -150,8 +150,8 @@ def placer_une_tuile():
         #Trouver le compteur minimum
         min_compteur = min(dict_des_compteurs.values())
         #Sélectionner aléatoirement un couple avec le compteur minimum
-        couples_min_compteur = [couple for couple, compteur in dict_des_compteurs.items() if compteur == min_compteur]
-        choix_final = random.choice(couples_min_compteur)
+        tuples_min_compteur = [tuple for tuple, compteur in dict_des_compteurs.items() if compteur == min_compteur]
+        choix_final = random.choice(tuples_min_compteur)
         ligne, colonne, valeur = choix_final
         #Placer une tuile de valeur 2 ou 4
         m[ligne][colonne] = valeur 
@@ -296,7 +296,6 @@ def play():
     global m
     m = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     #m = [[4,8,16,32],[64,128,256,512],[1024,2048,4096,8192],[16384,32768,65536,131072]]
-    #m = [[2,4,4,2],[0,0,0,2],[0,0,2,0],[2,0,0,2]]
     
     placer_une_tuile()
     placer_une_tuile()
