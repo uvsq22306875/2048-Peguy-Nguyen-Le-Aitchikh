@@ -111,8 +111,6 @@ def gauche():
     affichage()
     score()
 
-    return m
-
 def droite():
     global m
     for ligne in range(4):
@@ -140,8 +138,6 @@ def droite():
     placer_une_tuile()
     affichage()
     score()
-
-    return m
 
 def haut():
     global m
@@ -171,8 +167,6 @@ def haut():
     affichage()
     score()
 
-    return m
-
 def bas():
     global m
     for colonne in range(4):
@@ -200,8 +194,6 @@ def bas():
     placer_une_tuile()
     affichage()
     score()
-
-    return m
 
 def flèche_directionnelles(event):
     if event.keysym == "Right":  #Touche droite

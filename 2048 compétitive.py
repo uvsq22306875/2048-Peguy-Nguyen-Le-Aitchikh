@@ -187,7 +187,6 @@ def gauche():
     affichage()
     score()
 
-    return m
 
 def droite():
     global m
@@ -217,7 +216,6 @@ def droite():
     affichage()
     score()
 
-    return m
 
 def haut():
     global m
@@ -247,7 +245,6 @@ def haut():
     affichage()
     score()
 
-    return m
 
 def bas():
     global m
@@ -277,7 +274,6 @@ def bas():
     affichage()
     score()
 
-    return m
 
 def flèche_direction(event):
     if event.keysym == "Right":  #Touche droite
