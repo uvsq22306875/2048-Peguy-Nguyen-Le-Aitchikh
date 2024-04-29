@@ -75,8 +75,8 @@ def score():
 #Fonction lié au placement de tuile.
 def compteur_des_additions_possibles(m):
     compteur = 0
-    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
 
+    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
     # On décale tous les éléments vers la gauche pour éliminer les zéros.
     for _ in range(2):
         for ligne in range(4):
@@ -91,6 +91,7 @@ def compteur_des_additions_possibles(m):
             if m_temp[ligne][colonne] == m_temp[ligne][colonne + 1] : 
                 compteur += 1
 
+    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
     # On décale tous les éléments vers la droite pour éliminer les zéros.
     for _ in range(2):
         for ligne in range(4):
@@ -105,6 +106,7 @@ def compteur_des_additions_possibles(m):
             if m_temp[ligne][colonne] == m_temp[ligne][colonne - 1]:
                 compteur += 1
 
+    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
     # On décale tous les éléments vers le haut pour éliminer les zéros.
     for _ in range(2):
         for colonne in range(4):
@@ -119,6 +121,7 @@ def compteur_des_additions_possibles(m):
             if m_temp[ligne][colonne] == m_temp[ligne + 1][colonne]:
                 compteur += 1
 
+    m_temp = [ligne[:] for ligne in m]  #Copie de la grille
     # On décale tous les éléments vers le bas pour éliminer les zéros.
     for _ in range(2):
         for colonne in range(4):
