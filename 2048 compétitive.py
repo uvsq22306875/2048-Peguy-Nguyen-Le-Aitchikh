@@ -15,8 +15,8 @@ def la_grille():
 
 dictionnaire_des_couleurs = {0: "#FFFFFF", 2: "#FFEBF0", 4: "#FFD1DC", 8: "#FFB6C1", 16: "#FFC0CB", \
                              32: "#FFE4E1", 64: "#FFDAB9", 128: "#FFCC99", \
-                             256: "#FFE699", 512: "#FFFF99", 1024: "#D8FFD1", 4096: "#AFFFA1", \
-                             8192: "#A0E687", 16384: "#C5E5F0", 32768: "#ADD8E6", 65536: "#B0E0FF", \
+                             256: "#FFE699", 512: "#FFFF99", 1024: "#D8FFD1", 2048: "#C1FFB6", \
+                             4096: "#AFFFA1", 8192: "#A0E687", 16384: "#C5E5F0", 32768: "#ADD8E6", 65536: "#B0E0FF", \
                              131072: "#90B4F4" }
 
 # Rose pastel, Rose clair, Rose bonbon, Saumon clair, Rose clair (répété), Pêche, Vert menthe ,Vert clair
